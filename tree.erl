@@ -1,6 +1,8 @@
 -module(tree).
 -export([empty/0, insert/3, lookup/2]).
 
+% {node, {key, value, smaller_key_node, larger_key_node}}
+
 empty() -> {node, 'nil'}.
 
 insert(Key, Val, {node, 'nil'}) ->
@@ -18,5 +20,7 @@ lookup(Key, {node, {Key, Val, _, _}}) ->
   {ok, Val};
 lookup(Key, {node, {NodeKey, _, Smaller, _}}) when Key < NodeKey ->
   lookup(Key, Smaller);
-lookup(Key, {node, {NodeKey, _, _, Larger}}) when Key =< Larger ->
+lookup(Key, {node, {NodeKey, _, _, Larger}}) when Key =< NodeKey ->
   lookup(Key, Larger).
+
+
